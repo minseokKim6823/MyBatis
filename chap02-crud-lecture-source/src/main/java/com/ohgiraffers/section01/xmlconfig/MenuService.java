@@ -46,4 +46,37 @@ public class MenuService {
         sqlSession.close();
         return result > 0 ? true : false;
     }
+
+    public boolean modifyMenu(MenuDTO menu) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        int result = menuDAO.updateMenu(sqlSession, menu);
+
+        if (result > 0) {
+            sqlSession.commit(); //DB에 반영 (수동 커밋)
+        } else {
+            sqlSession.rollback();
+        }
+
+
+        sqlSession.close();
+        return result > 0 ? true : false;
+    }
+
+    public boolean removeMenu(int menuCode) {
+        SqlSession sqlSession = getSqlSession();
+
+        int result = menuDAO.deleteMenu(sqlSession, menuCode);
+
+        if (result > 0) {
+            sqlSession.commit(); //DB에 반영 (수동 커밋)
+        } else {
+            sqlSession.rollback();
+        }
+
+
+        sqlSession.close();
+        return result > 0 ? true : false;
+    }
 }

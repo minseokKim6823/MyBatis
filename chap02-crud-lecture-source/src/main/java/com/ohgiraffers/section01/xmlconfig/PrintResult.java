@@ -23,8 +23,8 @@ public class PrintResult {
 
         switch (statusCode){
             case "regist": successMessage = "신규 메뉴 등록에 성공하였습니다."; break;
-            case "modify": break;
-            case "remove":
+            case "modify": successMessage = " 메뉴 수정에 성공하였습니다."; break;
+            case "remove": successMessage = "메뉴 삭제에 성공하였습니다."; break;
         }
 
         System.out.println("successMessage = " + successMessage);

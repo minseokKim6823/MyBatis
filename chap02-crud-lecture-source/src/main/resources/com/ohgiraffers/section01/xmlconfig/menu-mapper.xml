@@ -4,7 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MenuMapper">
 
-    <resultMap id="menuResultMap" type="com.ohgiraffers.section01.xmlconfig.MenuDTO">
+    <resultMap id="menuResultMap" type="MenuDTO">
         <id property="menuCode" column="MENU_CODE"/>
         <result property="menuName" column="MENU_NAME"/>
         <result property="menuPrice" column="MENU_PRICE"/>
@@ -39,7 +39,7 @@
             parameterType은 기본적으로 풀 클래스명으로 사용해야 한다.
             (TypeAlias를 활용하면 줄인 별칭으로 작성할 수 있다.)
     -->
-    <insert id="insertMenu" parameterType="com.ohgiraffers.section01.xmlconfig.MenuDTO">
+    <insert id="insertMenu" parameterType="MenuDTO">
         INSERT
           INTO TBL_MENU
         (
@@ -56,4 +56,18 @@
         , 'Y'
         )
     </insert>
+
+    <update id="updateMenu" parameterType="MenuDTO">
+        UPDATE
+               TBL_MENU
+            SET MENU_NAME = #{ menuName }
+              , MENU_PRICE = #{ menuPrice }
+        WHERE MENU_CODE = #{ menuCode }
+    </update>
+
+    <delete id="deleteMenu" parameterType="_int">
+        DELETE
+          FROM TBL_MENU
+         WHERE MENU_CODE = #{ menuCode }
+    </delete>
 </mapper>

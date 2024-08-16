@@ -52,4 +52,32 @@ public class MenuController {
             printResult.printErrorMessage("메뉴 추가 실패!");
         }
     }
+
+    public void modifyMenu(Map<String, String> parameter) {
+        int menuCode = Integer.parseInt(parameter.get("menuCode"));
+        String menuName = parameter.get("menuName");
+        int menuPrice = Integer.parseInt(parameter.get("menuPrice"));
+
+        MenuDTO menu = new MenuDTO();
+        menu.setMenuName(menuName);
+        menu.setMenuPrice(menuPrice);
+        menu.setMenuCode(menuCode);
+
+        if(menuService.modifyMenu(menu)){
+            printResult.printSuccessMessage("modify");
+        }else{
+            printResult.printErrorMessage("메뉴 수정 실패!");
+        }
+    }
+
+
+    public void removeMenu(Map<String, String> parameter) {
+        int menuCode = Integer.parseInt(parameter.get("menuCode"));
+
+        if(menuService.removeMenu(menuCode)) {
+            printResult.printSuccessMessage("remove");
+        } else {
+            printResult.printErrorMessage("메뉴 삭제 실패!");
+        }
+    }
 }
