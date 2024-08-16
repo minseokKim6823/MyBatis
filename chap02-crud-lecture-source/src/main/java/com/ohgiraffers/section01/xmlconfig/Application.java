@@ -1,8 +1,11 @@
 package com.ohgiraffers.section01.xmlconfig;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Application {
+
     public static void main(String[] args) {
 
         MenuController menuController =new MenuController();
@@ -23,6 +26,13 @@ public class Application {
                 case 1:
                     menuController.findAllMenus();
                     break;
+                case 2:
+                    menuController.findMenuByMenuCode(inputMenuCode());
+                    break;
+                case 3:
+                    menuController.registMenu(inputMenu());
+                    break;
+
                 case 9:
                     System.out.println("프로그램을 종료하겠습니다"); return;
                 default:
@@ -31,4 +41,33 @@ public class Application {
             }
         }while(true);
     }
+
+    private static Map<String, String> inputMenuCode() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("메뉴코드를 입력하세요: ");
+        String menuCode = sc.nextLine();
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("menuCode",menuCode);
+
+        return parameter;
+    }
+
+    private static Map<String, String> inputMenu() {
+        Scanner sc =new Scanner(System.in);
+        System.out.print("신규 메뉴의 이름을 입력해 주세요: ");
+        String menuName =sc.nextLine();
+        System.out.print("신규 메뉴의 가격을 입력해 주세요: ");
+        String menuPrice =sc.nextLine();
+        System.out.print("신규 메뉴의 카테고리 코드를 입력해 주세요: ");
+        String categoryCode =sc.nextLine();
+
+        Map<String,String> parameter = new HashMap<>();
+        parameter.put("menuName",menuName);
+        parameter.put("menuPrice",menuPrice);
+        parameter.put("categoryCode",categoryCode);
+
+        return parameter;
+    }
+
 }

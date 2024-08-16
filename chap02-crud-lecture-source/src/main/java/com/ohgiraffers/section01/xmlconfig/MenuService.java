@@ -20,4 +20,30 @@ public class MenuService {
 
         return menuList;
     }
+
+    public MenuDTO findMenuByMenuCode(int menuCode) {
+        SqlSession sqlSession =getSqlSession();
+
+        MenuDTO menu = menuDAO.selectMenuByMenuCode(sqlSession, menuCode);
+
+        sqlSession.close();
+
+        return menu;
+    }
+
+    public boolean registMenu(MenuDTO menu) {
+        SqlSession sqlSession = getSqlSession();
+
+        int result = menuDAO.insertMenu(sqlSession,menu);
+
+        if(result > 0){
+            sqlSession.commit(); //DB에 반영 (수동 커밋)
+        }else {
+            sqlSession.rollback();
+        }
+
+
+        sqlSession.close();
+        return result > 0 ? true : false;
+    }
 }

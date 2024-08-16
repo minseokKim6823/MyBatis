@@ -22,4 +22,38 @@
             , ORDERABLE_STATUS
           FROM TBL_MENU;
     </select>
+    <select id="selectMenu" resultMap="menuResultMap" parameterType="_int">
+        SELECT
+              MENU_CODE
+            , MENU_NAME
+            , MENU_PRICE
+            , CATEGORY_CODE
+            , ORDERABLE_STATUS
+          FROM TBL_MENU
+         WHERE MENU_CODE = #{ menuCode };
+    </select>
+
+    <!--
+        설명.
+            DML용 쿼리는 반환형이 필요 없다.(항상 int를 반환하기 때문)
+            parameterType은 기본적으로 풀 클래스명으로 사용해야 한다.
+            (TypeAlias를 활용하면 줄인 별칭으로 작성할 수 있다.)
+    -->
+    <insert id="insertMenu" parameterType="com.ohgiraffers.section01.xmlconfig.MenuDTO">
+        INSERT
+          INTO TBL_MENU
+        (
+          MENU_NAME
+        , MENU_PRICE
+        , CATEGORY_CODE
+        , ORDERABLE_STATUS
+        )
+        VALUES
+        (
+          #{ menuName }
+        , #{ menuPrice }
+        , #{ categoryCode }
+        , 'Y'
+        )
+    </insert>
 </mapper>
