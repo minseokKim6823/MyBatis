@@ -147,16 +147,24 @@
             </if>
         </trim>
     </select>
-    <update id ="updateMenu" parameterType="hashmap">
+    <update id="updateMenu" parameterType="hashmap">
         UPDATE TBL_MENU
-        <set>
+        <!--        <set>-->
+        <!--            <if test="menuName != null and menuName != ''">-->
+        <!--               MENU_NAME = #{ menuName }-->
+        <!--            </if>-->
+        <!--            <if test="orderableStatus != null and orderableStatus != ''">-->
+        <!--             , ORDERABLE_STATUS = #{ orderableStatus }-->
+        <!--            </if>-->
+        <!--        </set>-->
+        <trim prefix="SET" prefixOverrides=",">
             <if test="menuName != null and menuName != ''">
                 MENU_NAME = #{ menuName }
             </if>
-            <if test ="orderableStatus != null and orderableStatus != ''">
-                , ORDERABLE_STATUS =# { orderableStatus }
+            <if test="orderableStatus != null and orderableStatus != ''">
+                , ORDERABLE_STATUS = #{ orderableStatus }
             </if>
-        </set>
-            WHERE MENU_CODE = #{ menuCode }
+        </trim>
+        WHERE MENU_CODE = #{ menuCode }
     </update>
 </mapper>
